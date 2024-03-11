@@ -1,8 +1,5 @@
-package com.example.pohanghang
+package com.example.pohanghang.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,44 +29,40 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.pohanghang.data.Screen
 import com.example.pohanghang.ui.theme.MainDarkGreen
 import com.example.pohanghang.ui.theme.MainGreen
-import com.example.pohanghang.ui.theme.PohanghangTheme
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PohanghangTheme {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.TopCenter
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        GreetingTitle()
-                        IdTitle(
-                            modifier = Modifier
-                                .align(Alignment.Start)
-                                .padding(top = 10.dp)
-                        )
-                        IdTextField(
-                            modifier = Modifier.align(Alignment.Start)
-                        )
-                        PwTitle(
-                            modifier = Modifier
-                                .align(Alignment.Start)
-                                .padding(top = 10.dp)
-                        )
-                        PwTextField(
-                            modifier = Modifier.align(Alignment.Start)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        ButtonLogin()
-                    }
-                }
-            }
+@Composable
+fun LoginScreen(navController: NavHostController) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            GreetingTitle()
+            IdTitle(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 10.dp)
+            )
+            IdTextField(
+                modifier = Modifier.align(Alignment.Start)
+            )
+            PwTitle(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 10.dp)
+            )
+            PwTextField(
+                modifier = Modifier.align(Alignment.Start)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            ButtonLogin(navController)
         }
     }
 }
@@ -140,12 +133,11 @@ fun PwTextField(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ButtonLogin() {
+fun ButtonLogin(navController: NavHostController) {
     Row {
         Button(
             enabled = true,
-            onClick = {
-            },
+            onClick = { },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MainGreen,
                 contentColor = Color.White,
@@ -162,6 +154,7 @@ fun ButtonLogin() {
         Button(
             enabled = true,
             onClick = {
+                navController.navigate(Screen.SignUp.name)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MainGreen,
@@ -182,34 +175,33 @@ fun ButtonLogin() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    PohanghangTheme {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopCenter
+    val navController = rememberNavController()
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                GreetingTitle()
-                IdTitle(
-                    modifier = Modifier
-                        .align(Alignment.Start)
-                        .padding(top = 10.dp)
-                )
-                IdTextField(
-                    modifier = Modifier.align(Alignment.Start)
-                )
-                PwTitle(
-                    modifier = Modifier
-                        .align(Alignment.Start)
-                        .padding(top = 10.dp)
-                )
-                PwTextField(
-                    modifier = Modifier.align(Alignment.Start)
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                ButtonLogin()
-            }
+            GreetingTitle()
+            IdTitle(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 10.dp)
+            )
+            IdTextField(
+                modifier = Modifier.align(Alignment.Start)
+            )
+            PwTitle(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 10.dp)
+            )
+            PwTextField(
+                modifier = Modifier.align(Alignment.Start)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            ButtonLogin(navController)
         }
     }
 }
